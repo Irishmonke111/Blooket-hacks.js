@@ -1,0 +1,1 @@
+javascript:(function(){try{let e=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode;if(!e)return;e.setState({hack:""});alert("Hack removed!")}catch{alert("Error: Make sure you're in Crypto Hack!")}})();
