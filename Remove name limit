@@ -1,0 +1,1 @@
+javascript:(function(){try{var e=document.querySelector('input[class*="nameInput"]');e&&(e.maxLength=120,alert("Name limit removed!"))}catch{alert("Error: Make sure you're on the name input screen!")}})();
