@@ -1,0 +1,1 @@
+javascript:(function(){try{let e=prompt("Enter lure level (1-5):");if(e){let t=Math.max(Math.min(parseInt(e)-1,4),0);Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode?.setState({lure:t});alert("Lure set to level "+(t+1))}}catch{alert("Error: Make sure you're in Fishing Frenzy!")}})();
