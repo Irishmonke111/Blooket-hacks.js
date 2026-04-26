@@ -1,0 +1,1 @@
+javascript:(function(){let blookName=prompt("Enter blook name:");try{let{props:t}=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode;if(!t)return;t.client.blook=blookName,t.liveGameController.setVal({path:`c/${t.client.name}/b`,val:blookName});alert("Blook changed to "+blookName)}catch{alert("Error: Make sure you're in a game!")}})();
