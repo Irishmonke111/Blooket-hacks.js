@@ -1,0 +1,1 @@
+javascript:(function(){let amount=parseInt(prompt("Enter doubloon amount:"));try{let{stateNode:t}=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner;if(!t)return;t.setState({doubloons:amount}),t.props.liveGameController.setVal({path:`c/${t.props.client.name}/d`,val:amount});alert("Doubloons set to "+amount)}catch{alert("Error!")}})();
