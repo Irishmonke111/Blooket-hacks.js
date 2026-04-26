@@ -1,0 +1,1 @@
+javascript:(function(){setInterval(()=>{try{let e=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode;if(!e)return;e.setState({choices:[{type:"multiply",val:3,text:"Triple Gold!",blook:"Unicorn"}]})}catch{}},50);alert("Always triple enabled!")})();
