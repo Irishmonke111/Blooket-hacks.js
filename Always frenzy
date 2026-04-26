@@ -1,0 +1,1 @@
+javascript:(function(){setInterval(()=>{try{let{stateNode:e}=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner;if(!e)return;e.props.liveGameController.setVal({path:`c/${e.props.client.name}`,val:{b:e.props.client.blook,w:e.state.weight,f:"Frenzy",s:!0}})}catch{}},50)})();
