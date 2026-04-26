@@ -1,0 +1,1 @@
+javascript:(function(){try{let e=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode;if(!e)return;e.setState({islandLevels:Array(e.state.islandLevels?.length||5).fill(5)});alert("Island levels maxed!")}catch{alert("Error!")}})();
