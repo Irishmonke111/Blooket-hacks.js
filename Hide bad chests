@@ -1,0 +1,1 @@
+javascript:(function(){setInterval(()=>{document.querySelectorAll('div[role="button"]').forEach(e=>{e.innerText.includes("Lose")&&(e.style.display="none")})},50);alert("Bad chests hidden!")})();
