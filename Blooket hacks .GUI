@@ -1,0 +1,149 @@
+javascript:(function(){
+if(window.IrishmonkeLoaded){alert("Cheats already loaded!");return;}
+window.IrishmonkeLoaded=true;
+
+Object.defineProperty(navigator,'clipboard',{get:()=>undefined});
+let iframe=document.createElement('iframe');
+document.body.appendChild(iframe);
+let oldLog=console.log;
+console.log=iframe.contentWindow.console.log.bind(console);
+iframe.remove();
+
+function l(e,t={},...o){var a=document.createElement(e);if("object"==typeof t.style){let n="";for(let r in t.style)n+=`${r.replace(/[A-Z]/g,e=>"-"+e.toLowerCase())}: ${t.style[r]}; `;t.style=n}for(let i in t)a[i]=t[i];for(let l of o)a.append(l);return a}
+
+let c={data:null,setItem(e,t){return e.split(".").reduce((e,o,a,n)=>(++a==n.length&&(e[o]=t),e[o]),this.data),localStorage.setItem("IrishmonkeSettings",JSON.stringify(this.data)),this.data},deleteItem(e){return e.split(".").reduce((e,t,o,a)=>(++o==a.length&&delete e[t],e[t]),this.data),localStorage.setItem("IrishmonkeSettings",JSON.stringify(this.data)),this.data},setData(e){this.data=e,localStorage.setItem("IrishmonkeSettings",JSON.stringify(this.data))}};
+
+try{c.data=JSON.parse(localStorage.getItem("IrishmonkeSettings")||"{}")}catch{c.setData({})}
+
+let p,u,h,m,g,y,b,_;
+
+_=l("div",{id:"IrishmonkeGUI",style:{top:"20px",left:"20px",transform:"scale(0.8)",position:"fixed",height:"auto",width:"250px",maxHeight:"600px",zIndex:"999999",display:"block"}});
+
+p=l("style",{id:"variables",innerHTML:":root {--backgroundColor: #2a2a2a;--headerColor: #1a1a1a;--buttonColor: #3a3a3a;--buttonHover: #4a4a4a;--activeButton: #00ff00;--textColor: #ffffff;--borderColor: #000000;}"});
+
+let styleEl=l("style",{innerHTML:".menuButton{width:100%;padding:10px;margin:3px 0;background-color:var(--buttonColor);color:var(--textColor);border:1px solid var(--borderColor);border-radius:3px;font-family:Arial,sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,0.3)}.menuButton:hover{background-color:var(--buttonHover)}.menuButton.active{background-color:var(--activeButton)!important;color:#000000;font-weight:bold}.categoryButton{width:100%;padding:8px;margin:2px 0;background-color:var(--buttonColor);color:var(--textColor);border:1px solid var(--borderColor);border-radius:3px;font-family:Arial,sans-serif;font-size:12px;cursor:pointer;transition:all 0.2s;text-align:center}.categoryButton:hover{background-color:var(--buttonHover)}.cheatInput{width:calc(100% - 10px);padding:6px;margin:3px 0;background-color:var(--buttonColor);color:var(--textColor);border:1px solid var(--borderColor);border-radius:3px;font-family:Arial,sans-serif;font-size:12px}.statusText{color:#888;font-size:11px;text-align:center;margin:5px 0;font-family:Arial,sans-serif}"});
+
+u=l("div",{style:{width:"100%",height:"100%",position:"relative",backgroundColor:"var(--backgroundColor)",border:"2px solid var(--borderColor)",borderRadius:"5px",overflow:"hidden",boxShadow:"0 4px 20px rgba(0,0,0,0.5)"}});
+
+m=l("div",{id:"header",style:{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px",backgroundColor:"var(--headerColor)",borderBottom:"2px solid var(--borderColor)",cursor:"move",userSelect:"none"}});
+
+let headerText=l("div",{style:{color:"var(--textColor)",fontFamily:"Arial,sans-serif",fontSize:"14px",fontWeight:"bold"}});
+headerText.innerHTML="Blooket Cheats";
+
+let closeBtn=l("button",{style:{background:"transparent",border:"none",color:"#ff4444",fontSize:"18px",cursor:"pointer",padding:"0 5px"}});
+closeBtn.innerHTML="×";
+closeBtn.onclick=function(){_.remove();window.IrishmonkeLoaded=false;};
+
+m.appendChild(headerText);
+m.appendChild(closeBtn);
+
+let statusContainer=l("div",{id:"statusContainer",style:{padding:"8px",backgroundColor:"#1a1a1a",borderBottom:"1px solid var(--borderColor)"}});
+
+let gameStatus=l("div",{className:"statusText",id:"gameStatus"});
+gameStatus.innerHTML="No game detected";
+
+let featureStatus=l("div",{className:"statusText",id:"featureStatus"});
+featureStatus.innerHTML="(Press E to hide)";
+
+statusContainer.appendChild(gameStatus);
+statusContainer.appendChild(featureStatus);
+
+h=l("div",{id:"categoryList",style:{padding:"8px",maxHeight:"150px",overflowY:"auto",borderBottom:"2px solid var(--borderColor)",backgroundColor:"#222"}});
+
+let catHeader=l("div",{style:{color:"var(--textColor)",fontFamily:"Arial,sans-serif",fontSize:"13px",fontWeight:"bold",marginBottom:"5px",textAlign:"center"}});
+catHeader.innerHTML="Categories";
+h.appendChild(catHeader);
+
+let contentDiv=l("div",{id:"content",style:{padding:"8px",maxHeight:"300px",overflowY:"auto"}});
+
+y=l("div",{style:{color:"var(--textColor)",fontFamily:"Arial,sans-serif",fontSize:"13px",fontWeight:"bold",marginBottom:"8px",textAlign:"center"}});
+y.innerHTML="Global";
+
+b=l("div",{id:"cheatButtons"});
+
+contentDiv.appendChild(y);
+contentDiv.appendChild(b);
+
+let footer=l("div",{style:{padding:"8px",backgroundColor:"#1a1a1a",borderTop:"2px solid var(--borderColor)",textAlign:"center"}});
+
+let credit1=l("div",{style:{color:"#666",fontSize:"10px",fontFamily:"Arial,sans-serif"}});
+credit1.innerHTML="GUI by DanMangan02#5394";
+
+let credit2=l("div",{style:{color:"#666",fontSize:"10px",fontFamily:"Arial,sans-serif"}});
+credit2.innerHTML="Cheats by jxtr";
+
+footer.appendChild(credit1);
+footer.appendChild(credit2);
+
+u.appendChild(m);
+u.appendChild(statusContainer);
+u.appendChild(h);
+u.appendChild(contentDiv);
+u.appendChild(footer);
+
+_.appendChild(p);
+_.appendChild(styleEl);
+_.appendChild(u);
+
+for(let f of document.querySelectorAll("#IrishmonkeGUI"))f.remove();
+
+let currentCategory="global";
+
+function w(e,t){let o=l("button",{className:"categoryButton"});o.innerHTML=e;o.onclick=function(){currentCategory=t;k(e,C[t])};h.appendChild(o);return o}
+
+async function k(e,t){b.innerHTML="";y.innerHTML=e;for(let a=0;a<t.length;a++){let n=t[a].name;let r=t[a].description;let i=t[a].type;let s=t[a].inputs;let c=t[a].enabled;let p=t[a].run;let d=t[a].element;if(!d){let u=l("button",{className:"menuButton"+(c?" active":"")});u.innerHTML=n;u.dataset.description=r;u.onclick=(function(e){return function(o){if(o.target==u||o.key=="Enter"&&o.target.classList.contains("cheatInput")){let a=[...u.parentElement.querySelectorAll(".cheatInput")];p.apply(e,a.map(e=>"number"==e.type?parseInt("0"+e.value):e.value));if(i=="toggle"){e.enabled=!e.enabled;u.classList.toggle("active",e.enabled)}}}}).bind(t[a])(t[a]);if(s&&s.length){b.appendChild(u);for(let h=0;h<s.length;h++){let m=s[h].name;let g=s[h].type;let f=s[h].min;let v=s[h].max;let x=s[h].value;let inp=document.createElement("input");inp.classList.add("cheatInput");if(g=="number"){inp.type="number";inp.min=f;inp.max=v;inp.value=x||(f!=null?f:0)}inp.placeholder=m;inp.onkeyup=function(e){if(e.key=="Enter")u.onclick(e)};b.appendChild(inp)}}else{b.appendChild(u)}t[a].element=u}else{b.appendChild(t[a].element)}}}
+
+document.body.appendChild(_);
+
+let C={
+global:[
+{name:"Auto Answer",description:"Toggles auto answer on",type:"toggle",enabled:false,data:null,run:function(){if(this.enabled){this.enabled=false;clearInterval(this.data);this.data=null}else{this.enabled=true;this.data=setInterval(()=>{try{var e=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode;if(!e)return;var t=e.state.question||e.props.client.question;if(!t)return;if(t.qType!="typing"){let o=e.state.stage;let a=e.state.feedback;if(o==="feedback"||a){document.querySelector('[class*="feedback"]')?.firstChild?.click()}else{let n=t.answers.map((e,i)=>t.correctAnswers.includes(e)?i:null).filter(e=>e!=null)[0];document.querySelectorAll('[class*="answerContainer"]')[n]?.click()}}else{Object.values(document.querySelector("[class*='typingAnswerWrapper']"))?.[1]?.children?._owner?.stateNode?.sendAnswer(t.answers[0])}}catch{}},50)}}},
+{name:"Highlight Answers",description:"Highlights correct answers",type:"toggle",enabled:false,data:null,run:function(){if(this.enabled){this.enabled=false;clearInterval(this.data);this.data=null}else{this.enabled=true;this.data=setInterval(()=>{try{let e=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode;if(!e)return;let t=e.state.question||e.props.client.question;let answers=document.querySelectorAll('[class*="answerContainer"]');answers.forEach((el,i)=>{if(t.correctAnswers.includes(t.answers[i])){el.style.backgroundColor="rgb(0, 207, 119)"}else{el.style.backgroundColor="rgb(189, 15, 38)"}})}catch{}},50)}}},
+{name:"Use Any Blook",description:"Play as any blook",run:function(){try{let e=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode;if(!e){alert("Run this on lobby!");return}if(e.state.blookData){let t=Object.entries;function o(data){e.setState({blookData:Object.keys(data).reduce((acc,key)=>{acc[key]=e.state.blookData[key]||1;return acc},{}),allSets:Object.values(data).reduce((acc,val)=>{if(!acc.includes(val.set))acc.push(val.set);return acc},[])})}Object.entries=function(obj){if(obj&&obj.Chick){o(obj);Object.entries=t}return t.apply(this,arguments)};e.render()}else{e.setState({unlocks:{includes:()=>1}})}}catch{alert("Error!")}}},
+{name:"Every Answer Correct",description:"Makes all answers correct",run:function(){try{let e=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode;if(!e)return;if(e.freeQuestions){e.freeQuestions=e.freeQuestions.map(q=>({...q,correctAnswers:q.answers}))}if(e.questions){e.questions=e.questions.map(q=>({...q,correctAnswers:q.answers}))}if(e.props?.client?.questions){e.props.client.questions=e.props.client.questions.map(q=>({...q,correctAnswers:q.answers}))}}catch{}}}
+],
+gold:[
+{name:"Set Gold",description:"Sets gold amount",inputs:[{name:"Amount",type:"number"}],run:function(amt){try{var e=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode;if(!e)return;e.setState({gold:amt,gold2:amt});e.props.liveGameController.setVal({path:"c/"+e.props.client.name,val:{b:e.props.client.blook,g:amt}})}catch{}}},
+{name:"Chest ESP",description:"Shows chest contents",type:"toggle",enabled:false,data:null,run:function(){if(this.enabled){this.enabled=false;clearInterval(this.data);this.data=null}else{this.enabled=true;this.data=setInterval(()=>{try{let e=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode;if(!e||e.state.stage!=="prize")return;e.state.choices.forEach((choice,i)=>{var el=document.querySelector("div[class*='choice"+(i+1)+"']");if(el&&!el.querySelector("div")){var div=document.createElement("div");div.style.cssText="color:white;font-family:Eczar;font-size:2em;display:flex;justify-content:center;transform:translateY(200px)";div.innerText=choice.text;el.append(div)}})}catch{}},50)}}}
+],
+crypto:[
+{name:"Set Crypto",description:"Sets crypto amount",inputs:[{name:"Amount",type:"number"}],run:function(amt){try{var e=Object.values(document.querySelector("#app>div>div"))?.[1]?.children?.[0]?._owner?.stateNode;if(!e)return;e.setState({crypto:amt,crypto2:amt});e.props.liveGameController.setVal({path:"c/"+e.props.client.name+"/cr",val:amt})}catch{}}},
+{name:"Password ESP",description:"Shows correct password",type:"toggle",enabled:false,data:null,run:function(){if(this.enabled){this.enabled=false;clearInterval(this.data);this.data=null}else{this.enabled=true;this.data=setInterval(()=>{try{var st=Object.values(document.querySelector("#app > div > div"))?.[1]?.children?.[1]?._owner?.stateNode?.state;if(!st||st.stage!=="hack")return;Array.from(document.querySelectorAll('[role="button"]')).forEach(btn=>{if(btn.textContent.trim()!==st.correctPassword.trim()){btn.style.backgroundColor="rgba(255, 64, 64, 0.5)"}else{btn.style.backgroundColor="rgba(0, 255, 0, 0.5)"}})}catch{}},50)}}}
+]
+};
+
+w("Global","global");
+w("Gold Quest","gold");
+w("Crypto Hack","crypto");
+
+k("Global",C.global);
+
+let dragItem=_;
+let active=false;
+let currentX;
+let currentY;
+let initialX;
+let initialY;
+let xOffset=0;
+let yOffset=0;
+
+m.addEventListener("touchstart",dragStart,false);
+m.addEventListener("touchend",dragEnd,false);
+m.addEventListener("touchmove",drag,false);
+m.addEventListener("mousedown",dragStart,false);
+document.addEventListener("mouseup",dragEnd,false);
+document.addEventListener("mousemove",drag,false);
+
+function dragStart(e){if(e.type==="touchstart"){initialX=e.touches[0].clientX-xOffset;initialY=e.touches[0].clientY-yOffset}else{initialX=e.clientX-xOffset;initialY=e.clientY-yOffset}if(e.target===m||m.contains(e.target)){active=true}}
+
+function dragEnd(e){initialX=currentX;initialY=currentY;active=false}
+
+function drag(e){if(active){e.preventDefault();if(e.type==="touchmove"){currentX=e.touches[0].clientX-initialX;currentY=e.touches[0].clientY-initialY}else{currentX=e.clientX-initialX;currentY=e.clientY-initialY}xOffset=currentX;yOffset=currentY;setTranslate(currentX,currentY,dragItem)}}
+
+function setTranslate(xPos,yPos,el){el.style.transform="translate3d("+xPos+"px, "+yPos+"px, 0) scale(0.8)"}
+
+document.addEventListener("keydown",function(e){if(e.key==="e"||e.key==="E"){e.preventDefault();_.style.display=_.style.display==="none"?"block":"none"}});
+
+console.log=oldLog;
+alert("✅ Blooket Cheats Loaded!\n\n🎮 Press E to hide/show\n✨ Compact dark theme\n🟢 Green = Active");
+})();
