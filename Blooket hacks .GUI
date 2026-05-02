@@ -70,7 +70,7 @@ let credit1=l("div",{style:{color:"#666",fontSize:"10px",fontFamily:"Arial,sans-
 credit1.innerHTML="GUI by Irishmonke111";
 
 let credit2=l("div",{style:{color:"#666",fontSize:"10px",fontFamily:"Arial,sans-serif"}});
-credit2.innerHTML="Cheats by jxtr";
+credit2.innerHTML="Cheats by Irishmonke111";
 
 footer.appendChild(credit1);
 footer.appendChild(credit2);
