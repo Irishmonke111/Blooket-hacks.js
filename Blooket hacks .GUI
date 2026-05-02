@@ -67,7 +67,7 @@ contentDiv.appendChild(b);
 let footer=l("div",{style:{padding:"8px",backgroundColor:"#1a1a1a",borderTop:"2px solid var(--borderColor)",textAlign:"center"}});
 
 let credit1=l("div",{style:{color:"#666",fontSize:"10px",fontFamily:"Arial,sans-serif"}});
-credit1.innerHTML="GUI by DanMangan02#5394";
+credit1.innerHTML="GUI by Irishmonke111";
 
 let credit2=l("div",{style:{color:"#666",fontSize:"10px",fontFamily:"Arial,sans-serif"}});
 credit2.innerHTML="Cheats by jxtr";
