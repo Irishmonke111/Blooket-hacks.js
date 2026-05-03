@@ -17,7 +17,7 @@ try{c.data=JSON.parse(localStorage.getItem("IrishmonkeSettings")||"{}")}catch{c.
 
 let p,u,m,g,y,b,_,currentPage=0;
 
-_=l("div",{id:"IrishmonkeGUI",style:{top:"20px",left:"20px",transform:"scale(0.8)",position:"fixed",height:"auto",width:"350px",maxHeight:"600px",zIndex:"999999",display:"block"}});
+_=l("div",{id:"IrishmonkeGUI",style:{top:"20px",left:"20px",transform:"scale(0.8)",position:"fixed",height:"auto",width:"400px",maxHeight:"600px",zIndex:"999999",display:"block"}});
 
 p=l("style",{id:"variables",innerHTML:":root {--backgroundColor: #2a2a2a;--headerColor: #1a1a1a;--buttonColor: #3a3a3a;--buttonHover: #4a4a4a;--activeButton: #00ff00;--textColor: #ffffff;--borderColor: #000000;}"});
 
@@ -43,12 +43,12 @@ let gameStatus=l("div",{className:"statusText",id:"gameStatus"});
 gameStatus.innerHTML="No game detected";
 
 let featureStatus=l("div",{className:"statusText",id:"featureStatus"});
-featureStatus.innerHTML="(Press E to hide)";
+featureStatus.innerHTML="(Press Ctrl+E to hide)";
 
 statusContainer.appendChild(gameStatus);
 statusContainer.appendChild(featureStatus);
 
-let contentDiv=l("div",{id:"content",style:{padding:"8px",maxHeight:"400px",overflowY:"auto"}});
+let contentDiv=l("div",{id:"content",style:{padding:"8px",maxHeight:"400px",minHeight:"400px",overflowY:"auto"}});
 
 y=l("div",{style:{color:"var(--textColor)",fontFamily:"Arial,sans-serif",fontSize:"13px",fontWeight:"bold",marginBottom:"8px",textAlign:"center"}});
 y.innerHTML="Global";
@@ -147,14 +147,16 @@ let s=t[a].inputs;
 let c=t[a].enabled;
 let p=t[a].run;
 let d=t[a].element;
+let inputElements=t[a].inputElements;
 if(!d){
 let u=l("button",{className:"menuButton"+(c?" active":"")});
 u.innerHTML=n;
 u.dataset.description=r;
+u.dataset.buttonIndex=a;
 u.onclick=(function(e){
 return function(o){
 if(o.target==u||o.key=="Enter"&&o.target.classList.contains("cheatInput")){
-let a=[...u.parentElement.querySelectorAll(".cheatInput")];
+let a=[...u.parentElement.querySelectorAll(".cheatInput")].filter(el=>el.dataset.buttonIndex==u.dataset.buttonIndex);
 p.apply(e,a.map(e=>"number"==e.type?parseInt("0"+e.value):e.value));
 if(i=="toggle"){
 e.enabled=!e.enabled;
@@ -165,6 +167,8 @@ u.classList.toggle("active",e.enabled);
 }).bind(t[a])(t[a]);
 if(s&&s.length){
 b.appendChild(u);
+if(!inputElements){
+inputElements=[];
 for(let h=0;h<s.length;h++){
 let m=s[h].name;
 let g=s[h].type;
@@ -173,16 +177,25 @@ let v=s[h].max;
 let x=s[h].value;
 let inp=document.createElement("input");
 inp.classList.add("cheatInput");
+inp.dataset.buttonIndex=a;
 if(g=="number"){
 inp.type="number";
 inp.min=f;
 inp.max=v;
 inp.value=x||(f!=null?f:0);
+}else{
+inp.type="text";
+inp.value=x||"";
 }
 inp.placeholder=m;
 inp.onkeyup=function(e){
 if(e.key=="Enter")u.onclick(e);
 };
+inputElements.push(inp);
+}
+t[a].inputElements=inputElements;
+}
+for(let inp of inputElements){
 b.appendChild(inp);
 }
 }else{
@@ -191,6 +204,11 @@ b.appendChild(u);
 t[a].element=u;
 }else{
 b.appendChild(t[a].element);
+if(inputElements){
+for(let inp of inputElements){
+b.appendChild(inp);
+}
+}
 }
 }
 }
@@ -332,9 +350,8 @@ function drag(e){if(active){e.preventDefault();if(e.type==="touchmove"){currentX
 
 function setTranslate(xPos,yPos,el){el.style.transform="translate3d("+xPos+"px, "+yPos+"px, 0) scale(0.8)"}
 
-document.addEventListener("keydown",function(e){if(e.key==="e"||e.key==="E"){e.preventDefault();_.style.display=_.style.display==="none"?"block":"none"}});
+document.addEventListener("keydown",function(e){if(e.ctrlKey&&(e.key==="e"||e.key==="E")){e.preventDefault();_.style.display=_.style.display==="none"?"block":"none"}});
 
 console.log=oldLog;
-alert("✅ Blooket Cheats Loaded!\n\n🎮 Press E to hide/show\n◄► Use arrows to navigate\n✨ 100+ Cheats Available\n🟢 Green = Active");
+alert("✅ Blooket Cheats Loaded!\n\n🎮 Ctrl+E to hide/show\n◄► Use arrows to navigate\n✨ 100+ Cheats Available\n🟢 Green = Active");
 })();
-
